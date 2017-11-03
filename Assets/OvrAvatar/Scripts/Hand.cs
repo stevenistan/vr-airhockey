@@ -8,8 +8,8 @@ public class Hand : MonoBehaviour
     public Vector3 holdPosition = new Vector3(0, -0.025f, 0.03f);
     public Vector3 holdRotation = new Vector3(0, 180, 0);
 
-    private bool holdingGun = false;
-    private GameObject gun = null;
+    private bool holdingPaddle = false;
+    private GameObject paddle = null;
 
     public OVRInput.Controller controller;
 
@@ -28,10 +28,12 @@ public class Hand : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Gun"))
+        print(other.gameObject);
+        if (other.CompareTag("Paddle"))
         {
-            if (handTriggerState > 0.9f && !holdingGun)
+            if (handTriggerState > 0.9f && !holdingPaddle)
             {
+                print("made it here");
                 Grab(other.gameObject);
             }
         }
@@ -39,30 +41,30 @@ public class Hand : MonoBehaviour
 
     void Grab(GameObject obj)
     {
-        holdingGun = true;
-        gun = obj;
+        holdingPaddle = true;
+        paddle = obj;
 
-        gun.transform.parent = transform;
+        paddle.transform.parent = transform;
 
-        gun.transform.localPosition = holdPosition;
-        gun.transform.localEulerAngles = holdRotation;
+        paddle.transform.localPosition = holdPosition;
+        paddle.transform.localEulerAngles = holdRotation;
 
-        gun.GetComponent<Rigidbody>().useGravity = false;
-        gun.GetComponent<Rigidbody>().isKinematic = true;
+        paddle.GetComponent<Rigidbody>().useGravity = false;
+        paddle.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     void Release()
     {
-        gun.transform.parent = null;
+        paddle.transform.parent = null;
 
-        Rigidbody rigidbody = gun.GetComponent<Rigidbody>();
+        Rigidbody rigidbody = paddle.GetComponent<Rigidbody>();
 
         rigidbody.useGravity = true;
         rigidbody.isKinematic = false;
 
         rigidbody.velocity = OVRInput.GetLocalControllerVelocity(controller);
 
-        holdingGun = false;
-        gun = null;
+        holdingPaddle = false;
+        paddle = null;
     }
 }
