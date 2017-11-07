@@ -14,15 +14,13 @@ public class Wall : MonoBehaviour {
 		
 	}
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.name == "Puck") {
+		if (other.gameObject.name == "PaddleAI") {
+			other.transform.localPosition = new Vector3 (-2.29f, 0.3f, other.transform.localPosition.z); 
 			other.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 0);
-            print(puck.transform.localPosition);
-			other.transform.localPosition = new Vector3(0, 0.3f, 0);
-			if (gameObject.name == "Wall Bottom") {
-				print ("The AI scored");
-			} else {
-				print ("You scored");
-			}
+		}
+		if (other.gameObject.name == "Paddle") {
+			other.transform.localPosition = new Vector3 (2.31f, 0.3f, other.transform.localPosition.z); 
+			other.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 0);
 		}
 	}
 }

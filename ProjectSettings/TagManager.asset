@@ -7,6 +7,7 @@ TagManager:
   - AIWall
   - MyWall
   - Paddle
+  - Puck
   layers:
   - Default
   - TransparentFX
