@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Puck: MonoBehaviour {
 	Rigidbody rb;
+	public GameObject lastPaddle;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +37,10 @@ public class Puck: MonoBehaviour {
 			print ("AI scored...");
 		} else if (col.gameObject.name == "Paddle") {
 			rb.AddForce (col.contacts [0].normal * 2, ForceMode.Impulse);
+			lastPaddle = col.gameObject;
+		} else if (col.gameObject.name == "AI") {
+			rb.AddForce (col.contacts [0].normal * 1.1f, ForceMode.Impulse);
+			lastPaddle = col.gameObject;
 		} else {
 			rb.AddForce (col.contacts [0].normal * 1.1f, ForceMode.Impulse);
 		}
