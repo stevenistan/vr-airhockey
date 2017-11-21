@@ -41,6 +41,8 @@ public class Puck: MonoBehaviour {
 		} else if (col.gameObject.name == "AI") {
 			rb.AddForce (col.contacts [0].normal * 1.1f, ForceMode.Impulse);
 			lastPaddle = col.gameObject;
+			float step = 15 * Time.deltaTime;
+			lastPaddle.transform.localPosition = Vector3.MoveTowards (lastPaddle.transform.localPosition, new Vector3 (-14.885f, 0.3249f, -0.91f), step);
 		} else {
 			rb.AddForce (col.contacts [0].normal * 1.1f, ForceMode.Impulse);
 		}
@@ -49,7 +51,7 @@ public class Puck: MonoBehaviour {
 
 	IEnumerator resetPosition() {
 		rb.velocity = Vector3.zero;
-		transform.position = new Vector3 (0, 0.3f, 0);
+		transform.position = new Vector3 (0, 0.05f, 0);
 		yield return new WaitForSeconds(1.5f);
 		rb.AddForce (new Vector3 (Random.Range (-1f, 1f), 0, Random.Range (-1f, 1f)) * 3, ForceMode.Impulse);
 	}

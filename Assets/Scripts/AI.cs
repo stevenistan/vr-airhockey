@@ -7,6 +7,11 @@ public class AI : MonoBehaviour
     private Rigidbody rb;
 
     public GameObject puck;
+	private bool canTrigger = true;
+
+	private float nextAction = 0.0f;
+	private float period = 1.0f;
+	private float rando = 1.0f;
 
     // Use this for initialization
     void Start()
@@ -19,15 +24,14 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (puck.transform.localPosition.x < -1.25f)
+        if (puck.transform.localPosition.x < -8)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, puck.transform.localPosition.z);
-            rb.AddForce(new Vector3(20, 0, 0));
-            print("got here");
+			float step = 15 * Time.deltaTime;
+			transform.localPosition = Vector3.MoveTowards (transform.localPosition, new Vector3 (puck.transform.localPosition.x - 1f, transform.localPosition.y, puck.transform.localPosition.z), step);
         }
-        if (-2 < transform.localPosition.x)
+        if (-7 < transform.localPosition.x)
         {
-            rb.velocity = new Vector3(2.31f, 0, 0);
+            rb.velocity = new Vector3(-0.1f, 0, 0);
         }
 
     }
