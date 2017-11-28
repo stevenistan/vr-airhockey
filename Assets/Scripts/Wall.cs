@@ -13,6 +13,7 @@ public class Wall : MonoBehaviour {
 	void Update () {
 		
 	}
+	/*
 	void OnCollisionEnter(Collision other) {
 		if (other.gameObject.name == "PaddleAI") {
 			other.transform.localPosition = new Vector3 (-2.29f, 0.3f, other.transform.localPosition.z); 
@@ -22,5 +23,5 @@ public class Wall : MonoBehaviour {
 			other.transform.localPosition = new Vector3 (2.31f, 0.3f, other.transform.localPosition.z); 
 			other.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 0);
 		}
-	}
+	}*/
 }

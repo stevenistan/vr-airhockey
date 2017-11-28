@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SizeBoost : MonoBehaviour {
+public class SizeBoost : PowerUp {
 	public float scale;
 	public float duration;
 	GameObject paddle;
