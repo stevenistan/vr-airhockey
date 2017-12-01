@@ -7,11 +7,16 @@ public class Puck: MonoBehaviour {
 	public GameObject lastPaddle;
 	public float maxMagnitude = 5f;
 	public float minMagnitude = 2f;
+	public ScoreUI scoreUI;
+	private AudioSource audioSource;
+	public AudioClip hitSound;
+	public AudioClip scoreSound;
 
 	// Use this for initialization
 	void Start () {
 		rb = gameObject.GetComponent<Rigidbody> ();
 		StartCoroutine (resetPosition ());
+		audioSource = gameObject.GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -40,20 +45,28 @@ public class Puck: MonoBehaviour {
 	{
 		if (col.gameObject.name == "AIGoal") {
 			StartCoroutine(resetPosition ());
-			print ("YOU SCORED!");
+			scoreUI.ScorePlayer ();
+			audioSource.PlayOneShot (scoreSound);
 		} else if (col.gameObject.name == "PlayerGoal") {
 			StartCoroutine(resetPosition ());
-			print ("AI scored...");
+			scoreUI.ScoreAI ();
+			audioSource.PlayOneShot (scoreSound);
 		} else if (col.gameObject.name == "Paddle") {
 			rb.AddForce (col.contacts [0].normal * 2, ForceMode.Impulse);
 			lastPaddle = col.gameObject;
+			audioSource.PlayOneShot (hitSound);
+
 		} else if (col.gameObject.name == "AI") {
 			rb.AddForce (col.contacts [0].normal * 1.1f, ForceMode.Impulse);
 			lastPaddle = col.gameObject;
 			float step = 15 * Time.deltaTime;
+			audioSource.PlayOneShot (hitSound);
+
 			lastPaddle.transform.localPosition = Vector3.MoveTowards (lastPaddle.transform.localPosition, new Vector3 (-14.885f, 0.3249f, -0.91f), step);
 		} else if (col.gameObject.tag == "MyWall") {
 			rb.AddForce (col.contacts [0].normal * 1.1f, ForceMode.Impulse);
+			audioSource.PlayOneShot (hitSound);
+
 		}
 	
 	}
