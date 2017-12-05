@@ -38,8 +38,6 @@ public class Puck: MonoBehaviour {
 			rb.velocity = Vector3.Normalize (rb.velocity) * maxMagnitude;
 		if (rb.velocity.magnitude < minMagnitude)
 			rb.velocity = Vector3.Normalize (rb.velocity) * minMagnitude;
-
-		print (rb.velocity.magnitude.ToString ());
 	}
 	void OnCollisionEnter (Collision col)
 	{
@@ -57,12 +55,12 @@ public class Puck: MonoBehaviour {
 			audioSource.PlayOneShot (hitSound);
 
 		} else if (col.gameObject.name == "AI") {
-			rb.AddForce (col.contacts [0].normal * 1.1f, ForceMode.Impulse);
+			rb.AddForce (col.contacts [0].normal * 1.1f + new Vector3(1f, 0f, 1.5f), ForceMode.Impulse);
 			lastPaddle = col.gameObject;
 			float step = 15 * Time.deltaTime;
 			audioSource.PlayOneShot (hitSound);
 
-			lastPaddle.transform.localPosition = Vector3.MoveTowards (lastPaddle.transform.localPosition, new Vector3 (-14.885f, 0.3249f, -0.91f), step);
+			//lastPaddle.transform.localPosition = Vector3.MoveTowards (lastPaddle.transform.localPosition, new Vector3 (-14.885f, 0.3249f, -0.91f), step);
 		} else if (col.gameObject.tag == "MyWall") {
 			rb.AddForce (col.contacts [0].normal * 1.1f, ForceMode.Impulse);
 			audioSource.PlayOneShot (hitSound);

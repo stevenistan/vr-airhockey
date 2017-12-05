@@ -17,9 +17,6 @@ public abstract class PowerUp : MonoBehaviour {
 		if (c.gameObject.tag == "Puck") {
 			audioSource.PlayOneShot (powerupSound);
 			Effect (c.gameObject.GetComponent<Puck>().lastPaddle);
-			gameObject.SetActive (false);
-			gameObject.transform.localPosition = new Vector3 (Random.Range (-1.75f, 1.75f), 0, Random.Range (-1f, 1f));
-			gameObject.SetActive (true);
 		}
 	}
 

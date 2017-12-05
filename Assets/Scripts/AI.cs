@@ -24,13 +24,13 @@ public class AI : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (puck.transform.localPosition.x < -8)
+		if (puck.transform.localPosition.x < -4)
 		{
 			if (Mathf.Abs (puck.transform.localPosition.x - transform.position.x) < 0.5f) {
 				float step = 50 * Time.deltaTime;
 				transform.localPosition = Vector3.MoveTowards (transform.localPosition, new Vector3 (puck.transform.localPosition.x, transform.localPosition.y, puck.transform.localPosition.z), step);
 			} else {
-				float step = 40 * Time.deltaTime;
+				float step = 20 * Time.deltaTime;
 				transform.localPosition = Vector3.MoveTowards (transform.localPosition, new Vector3 (puck.transform.localPosition.x - 1f, transform.localPosition.y, puck.transform.localPosition.z), step);
 			}
 		}
